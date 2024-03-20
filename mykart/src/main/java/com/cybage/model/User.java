@@ -20,8 +20,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name = "userId")
     private int userId;
     private String userName;
     @Email

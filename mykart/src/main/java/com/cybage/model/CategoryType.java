@@ -2,6 +2,6 @@ package com.cybage.model;
 
 public enum CategoryType {
 
-    ELECTRONICS,CLOTHS,HOUSEHOLD,BOOKS
+    ELECTRONICS,FASHION,HOUSEHOLD,BOOKS,BEAUTY_PRODUCTS
 
 }
