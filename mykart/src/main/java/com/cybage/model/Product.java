@@ -20,7 +20,7 @@ public class Product {
 
     private String description;
 
-    private byte[] image;
+    private String imageLink;
 
     private double price;
 

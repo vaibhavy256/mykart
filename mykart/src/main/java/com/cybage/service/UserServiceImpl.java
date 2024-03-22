@@ -28,8 +28,10 @@ public class UserServiceImpl implements IUserService{
             User newUser=userRepository.save(user);
             return newUser;
         }
-
     }
+
+
+
 
     public User addAdmin(User admin) {
         return userRepository.save(admin);
