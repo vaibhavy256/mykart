@@ -16,6 +16,7 @@ import java.sql.Blob;
 @AllArgsConstructor
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
     private String description;

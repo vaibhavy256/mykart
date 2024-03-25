@@ -1,9 +1,6 @@
 package com.cybage.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Category {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryId;
 
     @Enumerated(EnumType.STRING)
