@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements ICategoryService{
         return categoryRepository.findAll();
     }
 
-    public int deleteCategory(int id ) throws Exception {
+    public  int deleteCategory(int id ) throws Exception {
 
         Category category = categoryRepository.findById(id).orElse(null);
         if (category == null) {
