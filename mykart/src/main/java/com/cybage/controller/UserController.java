@@ -1,5 +1,6 @@
 package com.cybage.controller;
 
+import com.cybage.dto.userDTO;
 import com.cybage.model.User;
 import com.cybage.model.UserType;
 import com.cybage.service.IUserService;
@@ -24,9 +25,10 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/addUser")
-    public ResponseEntity<User>signUp(@RequestBody User user) throws Exception {
-        User newUser=userService.addUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    public ResponseEntity<userDTO>signUp(@RequestBody userDTO userDto) throws Exception {
+        User newUser=userService.addUser(userDTO.toEntity(userDto));
+        userDTO dto = userDTO.toDTO(newUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @PostConstruct
