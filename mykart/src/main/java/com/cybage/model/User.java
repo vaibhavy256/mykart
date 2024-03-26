@@ -1,18 +1,15 @@
 package com.cybage.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import lombok.*;
-
-import javax.validation.constraints.Email;
 import java.util.List;
-
 
 @Entity
 @Getter
@@ -22,8 +19,8 @@ import java.util.List;
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "userId")
     private int userId;
+
     private String userName;
     @Email
     @NotNull
@@ -37,6 +34,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+
     @OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "sellerId", referencedColumnName = "userId")
     private List<Product> products;
@@ -44,6 +42,4 @@ public class User {
     @OneToMany(targetEntity = Address.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private List<Address> addresses;
-
-
 }

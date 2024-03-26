@@ -2,9 +2,6 @@ package com.cybage.dto;
 
 import com.cybage.model.Category;
 import com.cybage.model.CategoryType;
-import com.cybage.model.User;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +18,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class categoryDTO {
+
+    private int categoryId;
     private CategoryType categoryType;
     private String description;
 

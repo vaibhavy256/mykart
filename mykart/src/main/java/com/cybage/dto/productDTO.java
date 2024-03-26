@@ -1,8 +1,6 @@
 package com.cybage.dto;
 
-import com.cybage.model.Category;
 import com.cybage.model.Product;
-import com.cybage.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -5,11 +5,9 @@ import com.cybage.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class UserServiceImpl implements IUserService{
-
     @Autowired
     private IUserRepository userRepository;
 
@@ -22,6 +20,7 @@ public class UserServiceImpl implements IUserService{
             throw new Exception("User already exists");
         }
         else{
+            System.out.println(user.getPassword());
             String rawPassword = user.getPassword();
             String encPassword = passwordEncoder.encode(rawPassword);
             user.setPassword(encPassword);
@@ -36,5 +35,4 @@ public class UserServiceImpl implements IUserService{
     public User addAdmin(User admin) {
         return userRepository.save(admin);
     }
-
 }

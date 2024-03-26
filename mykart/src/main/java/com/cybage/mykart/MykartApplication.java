@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan("com.cybage.model")
 public class MykartApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MykartApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(MykartApplication.class, args);
+	}
 
 }

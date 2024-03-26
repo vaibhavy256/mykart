@@ -22,24 +22,23 @@ public class CategoryServiceImpl implements ICategoryService{
     }
 
     public  int deleteCategory(int id ) throws Exception {
-
-        Category category = categoryRepository.findById(id).orElse(null);
-        if (category == null) {
-            throw new Exception("Category does not exists");
-        } else {
+        System.out.println(categoryRepository.findById(id).orElse(null));
+        if (categoryRepository.existsById(id)) {
             categoryRepository.deleteById(id);
+            return 1;
+        } else {
             return 0;
         }
     }
-
     public Category updateCategory(Category category) throws Exception {
-        Category updateCategory = categoryRepository.findById(category.getCategoryId()).orElse(null);
-        if (category == null) {
-            throw new Exception("Category does not exists");
+        Category updatecategory = categoryRepository.findById(category.getCategoryId()).orElse(null);
+        System.out.println(updatecategory);
+        if (updatecategory != null) {
+            updatecategory.setCategoryType(category.getCategoryType());
+            updatecategory.setDescription(category.getDescription());
+            return categoryRepository.save(updatecategory);
         } else {
-            updateCategory.setCategoryType(category.getCategoryType());
-            updateCategory.setDescription(category.getDescription());
-            return categoryRepository.save(updateCategory);
+            throw new Exception("Category does not exists");
         }
     }
 }

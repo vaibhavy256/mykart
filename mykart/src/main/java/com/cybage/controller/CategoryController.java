@@ -32,7 +32,8 @@ public class CategoryController {
     }
 
     @PutMapping("updateCategory/{id}")
-    public ResponseEntity<?>updateById(@PathVariable("id") int id, categoryDTO categoryDto) throws Exception {
+    public ResponseEntity<?>updateById(@PathVariable("id") int id, @RequestBody categoryDTO categoryDto) throws Exception {
+        categoryDto.setCategoryId(id);
         Category category=categoryService.updateCategory(categoryDTO.toEntity(categoryDto));
         if(category!=null){
             return new ResponseEntity<>(category,HttpStatus.CREATED);
@@ -44,8 +45,8 @@ public class CategoryController {
     public ResponseEntity<?>deleteById(@PathVariable("id") int id) throws Exception {
         int count = categoryService.deleteCategory(id);
         if (count == 0)
-            throw new Exception("Categories not found");
-        return new ResponseEntity<>(count, HttpStatus.CREATED);
+            return new ResponseEntity<>("Category not found", HttpStatus.CREATED);
+        return new ResponseEntity<>("Category Deleted Successfully",HttpStatus.OK);
     }
 
 
