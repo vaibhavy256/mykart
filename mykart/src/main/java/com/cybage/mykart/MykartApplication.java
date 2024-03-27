@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages ="com.cybage",exclude = {SecurityAutoConfiguration.class })
+@SpringBootApplication(scanBasePackages ="com.cybage")
 @EnableJpaRepositories("com.cybage.repository")
 @EntityScan("com.cybage.model")
 public class MykartApplication {
@@ -16,3 +16,4 @@ public class MykartApplication {
 	}
 
 }
+//exclude = {SecurityAutoConfiguration.class }

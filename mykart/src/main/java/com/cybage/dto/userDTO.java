@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 public class userDTO {
 
     private int userId;
-    private String userName;
+    private String username;
 
     private String password;
     private String email;
     private String contactNo;
-    private UserType userType;
+    private List<UserType> userType;
     private List<Product> products;
     private List<Address> addresses;
 
