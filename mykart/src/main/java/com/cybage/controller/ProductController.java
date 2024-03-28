@@ -3,6 +3,7 @@ import com.cybage.dto.categoryDTO;
 import com.cybage.dto.productDTO;
 import com.cybage.model.Category;
 import com.cybage.model.Product;
+import com.cybage.repository.ICategoryRepository;
 import com.cybage.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,19 @@ public class ProductController {
     @Autowired
     IProductService iProductService;
 
+    @Autowired
+    ICategoryRepository categoryRepository;
+
     @PostMapping("/addProduct/{id}")
-    public ResponseEntity<productDTO> addProduct(@RequestBody productDTO product,@PathVariable("id") categoryDTO category) throws Exception {
+    public ResponseEntity<productDTO> addProduct(@RequestBody productDTO product,@PathVariable("id") int categoryId) throws Exception {
         Product entity=productDTO.toEntity(product);
-        Category category_id=categoryDTO.toEntity(category);
-        entity=iProductService.addProduct(entity,category_id);
+       // Category category_id=categoryDTO.toEntity(category);
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalArgumentException("Category not found for ID: " + categoryId));
+
+        // Set the category in the product entity
+        entity.setCategory(category);
+        entity=iProductService.addProduct(entity);
         productDTO dto= productDTO.toDTO(entity);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }

@@ -25,9 +25,9 @@ public class productDTO {
 
     private double price;
 
-    private Category category_id;
+    private Category category;
 
-    private User seller_id;
+    private User seller;
 
     private String userEmail;
 

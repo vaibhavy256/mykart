@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IProductService {
 
-    public Product addProduct(Product product, Category category_id) throws Exception;
+    public Product addProduct(Product product) throws Exception;
 
     public List<Product> getProduct();
 

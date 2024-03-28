@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Enumerated;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class categoryDTO {
 
     private int categoryId;
+
     private CategoryType categoryType;
     private String description;
 

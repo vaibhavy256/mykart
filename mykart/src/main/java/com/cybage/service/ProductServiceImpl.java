@@ -26,7 +26,7 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     ICategoryRepository categoryRepository;
 
-    public Product addProduct(Product product, Category category_id) throws Exception {
+    public Product addProduct(Product product) throws Exception {
         User currentUser = userRepository.findByEmail(product.getUserEmail());
         if (currentUser == null) {
             throw new Exception("User does not exists");
@@ -37,7 +37,8 @@ public class ProductServiceImpl implements IProductService {
             newProduct.setImageLink(product.getImageLink());
             newProduct.setDescription(product.getDescription());
             newProduct.setPrice(product.getPrice());
-            newProduct.setCategory(category_id);
+            newProduct.setCategory(product.getCategory());
+            //newProduct.setCategory(category_id);
             productRepository.save(newProduct);
             return newProduct;
         }
