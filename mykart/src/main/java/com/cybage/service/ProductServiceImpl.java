@@ -11,10 +11,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements  IProductService{
+public class ProductServiceImpl implements IProductService {
 
     @Autowired
     IProductRepository productRepository;
@@ -25,30 +26,58 @@ public class ProductServiceImpl implements  IProductService{
     @Autowired
     ICategoryRepository categoryRepository;
 
-//    public Product addProduct (Product product, Category category) throws Exception {
-//     User user =userRepository.findById(product.getUser());
-//        if(user==null){
-//            throw new Exception("Seller does not exists");
-//        }
-//        else {
-//            Product newProduct = productRepository.save(product);
+    public Product addProduct(Product product, Category category_id) throws Exception {
+        User currentUser = userRepository.findByEmail(product.getUserEmail());
+        if (currentUser == null) {
+            throw new Exception("User does not exists");
+        } else {
+            Product newProduct = new Product();
+            newProduct.setUser(currentUser);
+            newProduct.setUserEmail(product.getUserEmail());
+            newProduct.setImageLink(product.getImageLink());
+            newProduct.setDescription(product.getDescription());
+            newProduct.setPrice(product.getPrice());
+            newProduct.setCategory(category_id);
+            productRepository.save(newProduct);
+            return newProduct;
+        }
+    }
+
+//        public Product addProduct (productDTO product){
+//            Product products = new Product();
+//            BeanUtils.copyProperties(product, products);
+//            Product newProduct=productRepository.save(products);
 //            return newProduct;
 //        }
-//    }
 
-    public Product addProduct(productDTO productDto ){
-        Product product=new Product();
-        BeanUtils.copyProperties(productDto, product);
-
-        // Get category by ID
-        Optional<Category> categoryOptional = categoryRepository.findById(productDto.getCategoryId());
-        categoryOptional.ifPresent(product::setCategory);
-
-        // Get seller (user) by ID
-        Optional<User> userOptional = userRepository.findById(productDto.getSellerId());
-        userOptional.ifPresent(product::setUser);
-        return productRepository.save(product);
+    public List<Product> getProduct() {
+        return productRepository.findAll();
     }
 
 
+    public int deleteProduct(int id) throws Exception {
+        System.out.println(productRepository.findById(id).orElse(null));
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id)
+            ;
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public Product updateProduct(Product product) throws Exception {
+        Product updateproduct = productRepository.findById(product.getProductId()).orElse(null);
+        System.out.println(updateproduct);
+        if (updateproduct != null) {
+            updateproduct.setPrice(product.getPrice());
+            updateproduct.setDescription(product.getDescription());
+            return productRepository.save(updateproduct);
+        } else {
+            throw new Exception("Category does not exists");
+        }
+    }
 }
+
+
+

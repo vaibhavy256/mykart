@@ -25,6 +25,8 @@ public class Product {
 
     private double price;
 
+    private String userEmail;
+
     @ManyToOne
     @JoinColumn(name = "sellerId")
     @JsonIgnore
