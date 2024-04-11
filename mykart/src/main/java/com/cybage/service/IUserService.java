@@ -13,4 +13,6 @@ public interface IUserService {
     public User addAdmin(User admin);
 
     public List<Product> findAllSellersHistory();
+
+    public User updateProfile(User user);
 }

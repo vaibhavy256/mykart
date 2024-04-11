@@ -66,6 +66,14 @@ public class UserController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
+    @PutMapping("/update/{email}")
+    public ResponseEntity<String> updateProfile(@PathVariable("email") String email, @RequestBody userDTO user) {
+        User result = userService.updateProfile(userDTO.toEntity(user));
+        if (result != null)
+            return new ResponseEntity<>("updated successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("profile update failed ", HttpStatus.NOT_FOUND);
+    }
+
 
     //@PostConstruct
     public void addAdminAtStartup() throws Exception {

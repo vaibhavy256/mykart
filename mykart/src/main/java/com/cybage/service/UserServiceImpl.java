@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User addUser( User user) throws Exception {
+    public User addUser(User user) throws Exception {
         boolean findUser = userRepository.existsByEmail(user.getEmail());
         if (findUser) {
             throw new Exception("User already exists");
@@ -30,6 +30,7 @@ public class UserServiceImpl implements IUserService{
             return newUser;
         }
     }
+
     public User updateProfile(User user) {
         User updateUser = userRepository.findByEmail(user.getEmail());
         if (updateUser != null) {
@@ -39,7 +40,7 @@ public class UserServiceImpl implements IUserService{
             return userRepository.save(updateUser);
 
         } else
-            throw new RuntimeException("Userid not found") ;
+            throw new RuntimeException("Userid not found");
 
     }
 
@@ -47,6 +48,7 @@ public class UserServiceImpl implements IUserService{
         return userRepository.FindSellersProductHistory();
 
     }
+
     public User addAdmin(User admin) {
         return userRepository.save(admin);
     }
