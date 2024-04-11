@@ -11,6 +11,10 @@ import org.hibernate.boot.archive.scan.spi.ClassDescriptor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @Getter
 @Setter
@@ -31,6 +35,9 @@ public class productDTO {
 
     private String userEmail;
 
+    private Date productDate;
+
+
     public static Product toEntity(productDTO dto) {
         Product entity = new Product();
         BeanUtils.copyProperties(dto, entity);
@@ -43,6 +50,14 @@ public class productDTO {
         return dto;
     }
 
+    public static List<productDTO> toDTO(List<Product> productList) {
+
+        return productList.stream().map(products -> toDTO(products)).collect(Collectors.toList());
+    }
+
+    public static List<Product> toEntity(List<productDTO> productDTOList) {
+        return productDTOList.stream().map(productDto -> toEntity(productDto)).collect(Collectors.toList());
+    }
 
 }
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Blob;
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -24,6 +25,8 @@ public class Product {
     private String imageLink;
 
     private double price;
+
+    private Date productDate;
 
     private String userEmail;
 

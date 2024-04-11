@@ -37,8 +37,7 @@ public class JwtAuhenticationFilter extends OncePerRequestFilter {
             username = jwtUtils.getUsername(token);
 
             //username should not be empty, context-auth must be empty
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null)
-            {
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails user = userDetailsService.loadUserByUsername(username);
 
                 //validate token

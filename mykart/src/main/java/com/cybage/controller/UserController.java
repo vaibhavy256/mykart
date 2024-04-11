@@ -2,10 +2,8 @@ package com.cybage.controller;
 
 import com.cybage.config.JwtUtils;
 import com.cybage.dto.userDTO;
-import com.cybage.model.JwtRequest;
-import com.cybage.model.JwtResponse;
-import com.cybage.model.User;
-import com.cybage.model.UserType;
+import com.cybage.dto.productDTO;
+import com.cybage.model.*;
 import com.cybage.repository.IUserTypeRepository;
 import com.cybage.service.CustomUserDetailsService;
 import com.cybage.service.IUserService;
@@ -16,10 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -55,14 +50,21 @@ public class UserController {
     public ResponseEntity<JwtResponse> loginUser(@RequestBody JwtRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         System.out.println(request.getUsername() + request.getPassword());
-  //      UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername(), request.getPassword());
+        //      UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername(), request.getPassword());
         String token = jwtUtils.generateToken(request.getUsername());
-        JwtResponse response=new JwtResponse();
+        JwtResponse response = new JwtResponse();
         response.setToken(token);
-        return new ResponseEntity<JwtResponse>(response,HttpStatus.OK);
-
+        return new ResponseEntity<JwtResponse>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/sellerHistory")
+    public ResponseEntity<List<productDTO>> userHistory() {
+        List<Product> result = userService.findAllSellersHistory();
+        if (result.isEmpty())
+            throw new RuntimeException("No users found");
+        List<productDTO> dto = productDTO.toDTO(result);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+    }
 
 
     //@PostConstruct
